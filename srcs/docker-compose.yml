@@ -10,7 +10,7 @@ services:
     env_file:
       - .env
     networks:
-      - inception-network
+      - wp-net
   mariadb:
     image: mariadb
     build: requirements/mariadb/
@@ -19,7 +19,7 @@ services:
     env_file:
       - .env
     networks:
-      - inception-network
+      - wp-net
   wordpress:
     image: wordpress
     build: requirements/wordpress/
@@ -30,9 +30,9 @@ services:
     env_file:
       - .env
     networks:
-      - inception-network
+      - wp-net
 
 networks:
-  inception-network:
+  wp-net:
     driver: bridge
 

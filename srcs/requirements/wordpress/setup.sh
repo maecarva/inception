@@ -8,4 +8,4 @@ wp user create "$WP_USER2" "$WP_USER2"@mail.org --user_pass="$WP_PASS2"
 
 wp theme install inspiro --activate
 
-exec php-fpm -F
+exec php-fpm81 -F

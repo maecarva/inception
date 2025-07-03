@@ -1,6 +1,8 @@
 all: up
 
 up:
+	@mkdir -p /home/maecarva/data/wp-files/
+	@mkdir -p /home/maecarva/data/wp-db/
 	docker compose -f srcs/docker-compose.yml up --build -d
 
 down:
