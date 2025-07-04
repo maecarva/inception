@@ -4,11 +4,12 @@ FROM alpine:3.21
 RUN apk update && apk upgrade && apk add mariadb mariadb-client
 RUN apk add vim && apk add curl
 
-RUN apk add php php-phar php-fpm php-mysqli php-iconv mysql-client php-json php-curl php-dom php-exif php-fileinfo php-mbstring php-openssl php-xml php-zip php-tokenizer php-session
+RUN apk add php php-phar php-fpm php-mysqli php-iconv mysql-client php-json php-curl php-dom php-exif \
+    php-fileinfo php-mbstring php-openssl php-xml php-zip php-tokenizer php-session mariadb-client
 
-COPY php.conf /etc/php81/php-fmp.d/php.conf
+COPY php.conf /etc/php83/php-fpm.d/www.conf
 
-WORKDIR /var/www/maecarva
+WORKDIR /var/www/html
 
 RUN curl https://fr.wordpress.org/wordpress-6.8.1-fr_FR.tar.gz -o wp.tar.gz
 RUN tar xzf wp.tar.gz && rm wp.tar.gz && mv wordpress/* . && rmdir wordpress

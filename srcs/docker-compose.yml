@@ -7,15 +7,21 @@ services:
     ports:
       - "443:443"
     restart: always
+    volumes:
+      - wp_data:/var/www/html:ro
     env_file:
       - .env
     networks:
       - wp-net
+    depends_on:
+      - wordpress
   mariadb:
     image: mariadb
     build: requirements/mariadb/
     container_name: mariadb
     restart: always
+    volumes:
+      - wp_db:/var/lib/mysql
     env_file:
       - .env
     networks:
@@ -25,14 +31,39 @@ services:
     build: requirements/wordpress/
     container_name: wordpress
     restart: always
+    volumes:
+      - wp_data:/var/www/html
     depends_on:
       - mariadb
     env_file:
       - .env
     networks:
       - wp-net
+  redis:
+      image: redis
+      build: requirements/bonus/redis/
+      networks:
+        - wp-net
+      container_name: redis
+      restart: always
+
 
 networks:
   wp-net:
+    name: wp-net
     driver: bridge
 
+volumes:
+  wp_data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/maecarva/data/wp-files/'
+  
+  wp_db:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/maecarva/data/wp-db/'

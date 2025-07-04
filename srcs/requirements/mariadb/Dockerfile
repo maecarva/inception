@@ -10,5 +10,7 @@ COPY setup.sh /etc/setup.sh
 
 RUN mkdir -p /var/lib/mysql /run/mysqld
 RUN chown -R mysql:mysql /run/mysqld /var/lib/mysql
+RUN chmod +x /etc/setup.sh
 
-RUN mariadb-install-db --user=mysql --datadir=/var/lib/mysql --skip-test-db
+ENTRYPOINT [ "/etc/setup.sh" ]
+

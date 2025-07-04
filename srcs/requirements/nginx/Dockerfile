@@ -11,6 +11,4 @@ COPY ./setup.sh /tmp/setup.sh
 
 RUN chmod +x /tmp/setup.sh && ./tmp/setup.sh
 
-EXPOSE 443
-
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
