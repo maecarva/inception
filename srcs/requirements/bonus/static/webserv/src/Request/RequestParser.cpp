@@ -115,24 +115,24 @@ void	Request::parseRequest(std::string& req, Server& server)
             }
 
 
-			if (key == "HOST:") {
-				std::string second = pair.second;
-				this->_host = second;
-				std::string localhost_listen = "localhost:" + this->getServer().getConfig().getServerPort();
+// 			if (key == "HOST:") {
+// 				std::string second = pair.second;
+// 				this->_host = second;
+// 				std::string localhost_listen = "localhost:" + this->getServer().getConfig().getServerPort();
 
-				if ( second == localhost_listen )
-					goto SUCCESS_NAME;
-				for ( size_t i = 0; i < this->getServer().getConfig().getServerNames().size(); ++i )
-				{
-					if ( this->getServer().getConfig().getServerNames()[i] == second )
-					{
-						goto SUCCESS_NAME;
-					}
-				}
-				if (this->getServer().getConfig().getListen() != second)
-					return this->setError(HTTP_BAD_REQUEST, __LINE__, __FILENAME__);
-				}
-SUCCESS_NAME:
+// 				if ( second == localhost_listen )
+// 					goto SUCCESS_NAME;
+// 				for ( size_t i = 0; i < this->getServer().getConfig().getServerNames().size(); ++i )
+// 				{
+// 					if ( this->getServer().getConfig().getServerNames()[i] == second )
+// 					{
+// 						goto SUCCESS_NAME;
+// 					}
+// 				}
+// 				if (this->getServer().getConfig().getListen() != second)
+// 					return this->setError(HTTP_BAD_REQUEST, __LINE__, __FILENAME__);
+// 				}
+// SUCCESS_NAME:
             if (key == "CONNECTION:") {
                 std::string second = pair.second;
                 std::transform(second.begin(), second.end(), second.begin(), ::toupper);

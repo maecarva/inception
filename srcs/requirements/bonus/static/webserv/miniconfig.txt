@@ -1,5 +1,5 @@
 Server
-listen 127.0.0.1:3001
+listen 0.0.0.0:3001
 server_names hubert
 error_pages 404 ./static_pages/error_pages/404.html
 error_pages 400 ./static_pages/error_pages/400.html

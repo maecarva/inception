@@ -35,6 +35,7 @@ services:
       - wp_data:/var/www/html
     depends_on:
       - mariadb
+      - redis
     env_file:
       - .env
     networks:
@@ -46,6 +47,23 @@ services:
         - wp-net
       container_name: redis
       restart: always
+  static:
+    image: static
+    build: requirements/bonus/static
+    ports:
+      - "3001:3001"
+    restart: always
+  adminer:
+    image: adminer
+    build: requirements/bonus/adminer
+    volumes:
+      - wp_data:/var/www/html
+    networks:
+      - wp-net
+    depends_on:
+      - wordpress
+    restart: always
+
 
 
 networks:
