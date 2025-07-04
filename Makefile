@@ -9,9 +9,9 @@ down:
 	docker compose -f srcs/docker-compose.yml down -v
 
 fclean:
-	docker volume rm -f `docker volume ls -q`
 	docker images -q | xargs -r docker rmi -f
 	docker network rm -f `docker network ls -q`
+	docker volume rm -f `docker volume ls -q`
 
 re: down fclean all
 	

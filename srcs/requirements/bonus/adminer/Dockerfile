@@ -1,7 +1,9 @@
 FROM alpine:3.21
 
-RUN apk update && apk upgrade && apk add curl
+RUN apk update && apk upgrade && apk add curl ca-certificates && update-ca-certificates
 
 WORKDIR /var/www/html
 
-RUN curl https://github.com/vrana/adminer/releases/download/v5.3.0/adminer-5.3.0.php -o adminer.php
+COPY setup.sh /etc/setup.sh
+
+ENTRYPOINT [ "sh" , "/etc/setup.sh"]

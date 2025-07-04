@@ -57,11 +57,24 @@ services:
     image: adminer
     build: requirements/bonus/adminer
     volumes:
-      - wp_data:/var/www/html
+      - wp_data:/var/www/html:rw
     networks:
       - wp-net
     depends_on:
       - wordpress
+    restart: always
+
+  vsftpd:
+    image: vsftpd
+    build: requirements/bonus/vsftpd/
+    networks:
+      - wp-net
+    ports:
+      - "21:21"
+      - "21000-21010:21000-21010"
+    volumes:
+      - wp_data:/home/ftpuser/wp:rw
+    container_name: vsftpd
     restart: always
 
 
