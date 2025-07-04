@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/site/style.css">
+	<title>S.C.E.P</title>
+</head>
+<body>
+	<div class="root">
+		<nav>
+			<ul>
+				<li>
+					<a href="/site">HOME</a>
+					<a href="/site/upload.html">UPLOAD PAGE</a>
+					<a href="/site/cgi.html">CGI PAGE</a>
+					<a href="/site/login">LOGIN</a>
+					<a href="/site/protected">PROTECTED</a>
+				</li>
+			</ul>
+		</nav>
+		<h1>Upload page</h1>
+
+
+		<form id="uploadForm">
+			<input type="file" id="fileInput" name="file">
+			<button type="submit">Envoyer</button>
+		</form>
+	</div>
+</body>
+  <script>
+    document
+      .getElementById("uploadForm")
+      .addEventListener("submit", async function(event) {
+        event.preventDefault();
+
+        const input = document.getElementById("fileInput");
+        if (input.files.length === 0) {
+          alert("Veuillez sélectionner un fichier.");
+          return;
+        }
+
+        const file = input.files[0];
+        try {
+          const response = await fetch("http://127.0.0.1:3001/uploads/" + document.getElementById("fileInput").value.substr(12, 500), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/octet-stream"
+            },
+            body: file
+          });
+
+          if (response.ok) {
+				alert("File created.");
+          } else {
+			alert("Error, please read console.");
+            console.error(
+              `Erreur serveur : ${response.status} ${response.statusText}`
+            );
+          }
+        } catch (err) {
+			alert("Error, please read console.");
+          	console.error("Erreur réseau :", err);
+        }
+      });
+  </script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/site/style.css">
+		<title>Login page</title>
+		<style>
+
+			div {
+				display: flex;
+				width: 100vw;
+				height: 100vh;
+			}
+			form {
+				display: flex;
+				flex-direction: column;
+				margin: auto;
+			}
+		</style>
+	</head>
+	<body>
+		<nav>
+			<ul>
+				<li>
+					<a href="/site">HOME</a>
+					<a href="/site/upload.html">UPLOAD PAGE</a>
+					<a href="/site/cgi.html">CGI PAGE</a>
+					<a href="/site/login">LOGIN</a>
+					<a href="/site/protected">PROTECTED</a>
+				</li>
+			</ul>
+		</nav>
+		<div>
+			<form action="/site/login" method="post">
+				<label for="username">Username: </label>
+				<input type="text" name="username" id="username" required>
+				<label for="password">Password: </label>
+				<input type="password" name="password" id="password" required>
+				<input type="submit" value="Login">
+			</form>
+		</div>
+	</body>
+</html>
