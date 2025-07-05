@@ -1,14 +1,8 @@
 FROM alpine:3.21
 
-RUN apk add --no-cache vsftpd openssl \
-    # créer un utilisateur ftpuser qui pointe home vers /var/www/html
- && adduser -D -h /var/www/html -s /sbin/nologin ftpuser \
-    # mot de passe chiffré “ftppass” (change-le !)
- && echo "ftpuser:$(openssl passwd -1 ftppass)" | chpasswd -e
-
+RUN apk add --no-cache vsftpd shadow
 # copier ta conf
 COPY vsftpd.conf /etc/vsftpd/vsftpd.conf
+COPY start.sh /etc/start.sh
 
-EXPOSE 21 21000-21010
-
-CMD ["vsftpd", "/etc/vsftpd/vsftpd.conf"]
+ENTRYPOINT [ "sh", "/etc/start.sh" ]

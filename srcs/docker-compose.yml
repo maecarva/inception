@@ -49,12 +49,14 @@ services:
       restart: always
   static:
     image: static
+    container_name: static
     build: requirements/bonus/static
     ports:
       - "3001:3001"
     restart: always
   adminer:
     image: adminer
+    container_name: adminer
     build: requirements/bonus/adminer
     volumes:
       - wp_data:/var/www/html:rw
@@ -69,12 +71,30 @@ services:
     build: requirements/bonus/vsftpd/
     networks:
       - wp-net
+    env_file:
+      - .env
     ports:
       - "21:21"
       - "21000-21010:21000-21010"
     volumes:
-      - wp_data:/home/ftpuser/wp:rw
+      - wp_data:/var/www/html:rw
     container_name: vsftpd
+    restart: always
+
+  cadvisor:
+    image: cadvisor
+    build: requirements/bonus/cadvisor/
+    networks:
+      - wp-net
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    container_name: cadvisor
     restart: always
 
 
