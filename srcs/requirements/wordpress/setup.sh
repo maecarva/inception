@@ -1,9 +1,16 @@
-echo "[WP config] Waiting for MariaDB..."
+MAX_RETRIES=30
+COUNT=0
+
 until mariadb-admin ping -h "${DB_HOST}" -u "${DB_USER}" -p"${DB_PASSWORD}" --silent; do
-	echo "cant contact db"
-	sleep 3
+  COUNT=$((COUNT + 1))
+  if [ "$COUNT" -ge "$MAX_RETRIES" ]; then
+    echo "[WP config] ❌ MariaDB unreachable after ${MAX_RETRIES} attempts, exiting."
+    exit 1
+  fi
+
+  echo "[WP config] Attempt ${COUNT}/${MAX_RETRIES}: cannot contact MariaDB, retrying in 3s..."
+  sleep 3
 done
-echo "[WP config] MariaDB accessible."
 
 wp config create --dbname="$DB_NAME" --dbuser="$DB_USER" --dbpass="$DB_PASSWORD" --dbhost=mariadb:3306 --force
 
