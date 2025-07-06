@@ -16,7 +16,13 @@ ls:
 	docker image ls
 	docker container ls
 	docker network ls
+	docker volume ls
 	docker ps -a
+
+vrm:
+	sudo rm -rf /home/maecarva/data/wp-files/
+	sudo rm -rf /home/maecarva/data/wp-db/
+
 
 re: down fclean all
 	
