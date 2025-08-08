@@ -17,7 +17,7 @@
   - **Adminer:** Lightweight database management interface.
   - **cAdvisor:** Container resource usage and performance monitoring.
   - **Redis:** Caching layer to improve application performance.
-  - **Static Site:** Served via Nginx to demonstrate multi-service hosting.
+  - **Static Site:** Served via custom webserver written in c++.
   - **VSFTPD:** FTP server for file transfers.
 
 ## Installation & Usage
@@ -48,8 +48,8 @@ make fclean
 
 - Wrote **Dockerfiles** with best practices: caching, layering, minimal base images.
 - Managed multi-container stacks with **Docker Compose**: networks, volumes, and environment variables.
-- Configured **Nginx** for load balancing, reverse proxy, and SSL termination.
-- Implemented **persistent storage** and automatic **healthchecks**.
+- Configured **Nginx** with SSL.
+- Implemented **persistent storage**.
 - Integrated **monitoring** and **caching** services for a production-like setup.
 - Automated builds and deployments using make targets in the provided **Makefile**.
 
